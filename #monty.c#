@@ -70,4 +70,3 @@ funcs[i].f(stack, line_number);
 }
 }
 }
-
