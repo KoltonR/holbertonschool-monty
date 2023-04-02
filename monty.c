@@ -65,7 +65,10 @@ unsigned int i;
 for (i = 0; funcs[i].opcode != NULL; i++)
 {
 if (strcmp(funcs[i].opcode, fun) == 0)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1e27e71c3346bdd68535f111e4f1609c8240593c
 {
 funcs[i].f(stack, line_number);
 }
