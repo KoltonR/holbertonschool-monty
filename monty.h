@@ -1,23 +1,20 @@
-#ifndef MONTY
-#define MONTY
-
-/* strtok Delimiters */
-
-#define DELIMS "\n \r\t"
-#define  _GNU_SOURCE
+#ifndef MONTY_H
+#define MONTY_H
 
 /* libraries */
-#include <string.h>
-#include <stddef.h>
-#include <stdlib.h>
+#include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdarg.h>
+#include <unistd.h>
+#include <ctype.h>
+#include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <fcntl.h>
-#include <ctype.h>
+#define VALID 1
 
-/* structs */
-
+/* data structures (from intranet)*/
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -29,9 +26,9 @@
  */
 typedef struct stack_s
 {
-	int n;
-	struct stack_s *prev;
-	struct stack_s *next;
+        int n;
+        struct stack_s *prev;
+        struct stack_s *next;
 } stack_t;
 
 /**
@@ -44,54 +41,26 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-	char *opcode;
-	void (*f)(stack_t **stack, unsigned int line_number);
+        char *opcode;
+        void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-/**
- * struct free_struct - opcode and its function
- * @line: line buffer
- * @fp: file pointer
- *
- * Description: opcode and its function
- * for stack, queues, LIFO, FIFO
- */
+/* FUNCTION PROTOTYPES */
+void (*get_func(stack_t **stack, int l, char *code))(stack_t **, unsigned int);
+void err(void);
+void pushOp(stack_t **stack, unsigned int line_number, char *pushNum);
+void free_stack(stack_t **stack);
 
-typedef struct free_struct
-{
-	char *line;
-	FILE *fp;
-} early_free_struct;
-
-extern early_free_struct efs;
-
-/* function protypes */
-
+/* opcodes */
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
-void check_command(stack_t **stack, char *op, unsigned int line_num);
-int space_count(char *str, char *delimiter);
-void monty_exit(stack_t **stack);
-void read_file(stack_t **stack);
-FILE *monty_init(int argc, char *file);
-char **ndsplitter(char *fun, char *delimiter);
-void free_list(char **list);
-int isonlyspaces(char *str);
 void pint(stack_t **stack, unsigned int line_number);
-void push(stack_t **stack, unsigned int line_number);
-void pop(stack_t **stack, unsigned int line_num);
+void pop(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
 void add(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
-void early_free(stack_t **head);
-int _isdigit(char *token);
-void sub(stack_t **stack, unsigned int line_number);
-void mul(stack_t **stack, unsigned int line_number);
-void mod(stack_t **stack, unsigned int line_number);
-void _div(stack_t **stack, unsigned int line_number);
-void pchar(stack_t **stack, unsigned int line_number);
 
+/*GLOBAL VAR*/
+extern FILE *file;
 
-
-
-#endif /* MONTY */
+#endif
