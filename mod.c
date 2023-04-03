@@ -20,7 +20,7 @@ exit(EXIT_FAILURE);
 }
 
 if (head->n == 0)
-{							
+{
 fprintf(stderr, "L%u: division by zero\n", line_number);
 early_free(stack);
 exit(EXIT_FAILURE);
